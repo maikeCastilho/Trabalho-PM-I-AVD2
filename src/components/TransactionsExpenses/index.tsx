@@ -1,0 +1,33 @@
+import { SpendingStorageDTO } from "../../spending/spendingstoragedto";
+import {
+  Container,
+  Description,
+  Amount,
+  Local,
+  Footer,
+  Category,
+  Date,
+} from "./styles";
+
+type Props = {
+  data: SpendingStorageDTO
+}
+
+export function TransactionExpenses({data}: Props) {
+  return (
+    <Container>
+      <Description>{data.invoice}</Description>
+      <Amount>{data.taxCode}</Amount>
+      <Local>{data.invoiceAmount}</Local>
+      <Local>{data.taxAmount}</Local>
+
+      
+
+      <Footer>
+        <Category>{data.state}</Category>
+        <Date>{data.supplier}</Date>
+      </Footer>
+
+    </Container>
+  )
+}
