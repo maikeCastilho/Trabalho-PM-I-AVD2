@@ -4,17 +4,18 @@ import { useTheme } from 'styled-components'
 import { Dashboard } from '../pages/Dashboard'
 import { ListExpenses } from '../pages/ListExpenses'
 import { SearchExpenses } from '../pages/SearchExpenses'
+import { Resume } from '../pages/Resume'
 
 type AppRoutes = {
   dashboard: undefined;
   listExpenses: undefined;
-  searchExpenses: undefined;
+  resume: undefined;
 }
 
 export type AppNavigationRoutesProp = BottomTabNavigationProp<AppRoutes>
 
 const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>()
-      
+
 export function AppRoutes() {
   const theme = useTheme()
 
@@ -57,7 +58,23 @@ export function AppRoutes() {
         }}
       />
 
+
       <Screen
+        name='resume'
+        component={Resume}
+        options={{
+          tabBarLabel: 'Pesquisa',
+          tabBarIcon: (({ size, color }: { size: number; color: string }) =>
+            <MaterialIcons
+              name='list'
+              size={size}
+              color={color}
+            />
+          )
+        }}
+      />
+
+      {/* <Screen
         name='searchExpenses'
         component={SearchExpenses}
         options={{
@@ -70,7 +87,7 @@ export function AppRoutes() {
             />
           )
         }}
-      />
+      /> */}
     </Navigator>
   )
 }

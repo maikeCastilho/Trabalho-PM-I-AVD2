@@ -18,10 +18,8 @@ export function TransactionExpenses({data}: Props) {
     <Container>
       <Description>{data.invoice}</Description>
       <Amount>{data.taxCode}</Amount>
-      <Local>{data.invoiceAmount}</Local>
-      <Local>{data.taxAmount}</Local>
-
-      
+      <Local>Valor da nota: {data.invoiceAmount}</Local>
+      <Local>Imposto: {data.taxAmount}</Local>
 
       <Footer>
         <Category>{data.state}</Category>
