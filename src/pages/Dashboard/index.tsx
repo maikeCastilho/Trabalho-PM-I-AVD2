@@ -12,10 +12,10 @@ import { InputDate } from '../../components/InputDate'
 export function Dashboard() {
     const [invoice, setInvoice] = useState('')
     const [taxCode, setTaxCode] = useState('')
-    const [invoiceAmount, setInvoiceAmount] = useState('')
+    const [invoiceAmount, setInvoiceAmount] = useState()
     const [state, setState] = useState('')
     const [supplier, setSupplier] = useState('')
-    let taxAmount:string = ''
+    let taxAmount:number = 0
 
     const validCodes = ["1234", "6789", "1708", "5952"]
     const validState = ["RJ", "SP", "MG"]
@@ -40,26 +40,29 @@ export function Dashboard() {
         if (!validSuppliers.includes(supplier)){
             return Alert.alert("Forncedor inválido", 'Deu ruim')
         }
-        
-        const numericInvoiceAmount = parseFloat(invoiceAmount.replace('R$', '').replace(',', '.').trim());
+        console.log(invoiceAmount)
+
+        const numericInvoiceAmount = parseFloat(invoiceAmount.replace('R$', '').replace('.', '').trim());
+
+        console.log(numericInvoiceAmount)
 
         if ((taxCode === '1234' || taxCode === '6789') && state == 'RJ'){
-            taxAmount = (numericInvoiceAmount * 0.01).toFixed(2); // Convertendo para string com 2 casas decimais
+            taxAmount = numericInvoiceAmount * 0.01// Convertendo para string com 2 casas decimais
         }
 
         if ((taxCode === '1234' || taxCode === '6789') && state == 'SP'){
-            taxAmount = (numericInvoiceAmount * 0.02).toFixed(2); // Convertendo para string com 2 casas decimais
+            taxAmount = numericInvoiceAmount * 0.02// Convertendo para string com 2 casas decimais
         }
 
         if ((taxCode === '1234' || taxCode === '6789') && state == 'MG'){
-            taxAmount = (numericInvoiceAmount * 0.03).toFixed(2); // Convertendo para string com 2 casas decimais
+            taxAmount = numericInvoiceAmount * 0.03// Convertendo para string com 2 casas decimais
         }
 
         const data = {
             id: String(new Date().getTime()),
             invoice,
             taxCode,
-            invoiceAmount,
+            invoiceAmount: numericInvoiceAmount,            
             state,
             supplier,
             taxAmount,

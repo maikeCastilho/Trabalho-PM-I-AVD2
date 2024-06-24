@@ -2,8 +2,8 @@ export type SpendingStorageDTO = {
     id: string;
     invoice: string;
     taxCode: string;
-    invoiceAmount: string;
+    invoiceAmount: number
     state: string;
     supplier: string
-    taxAmount: string
+    taxAmount: number
 }
