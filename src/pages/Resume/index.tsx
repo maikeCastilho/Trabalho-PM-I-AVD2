@@ -4,16 +4,9 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useCallback, useState } from "react";
 import { Alert } from "react-native";
 import { FlatList } from "react-native";
-
-import {
-  Container,
-  Content,
-  Header,
-  Title
-} from "./style";
-import { Amount, Category, Description } from "../../components/TransactionsExpenses/styles";
+import {Container,  Content, Title} from "./style";
 import { SpendingStorageDTO } from "../../spending/spendingstoragedto";
-import { TransactionExpenses } from "../../components/TransactionsExpenses";
+import Header from '../../components/Header'
 
 interface GroupedData {
   title: string;
@@ -28,20 +21,24 @@ export function Resume() {
       const data: SpendingStorageDTO[] = await spendingGetAll();
 
       // Agrupando os dados por fornecedor e estado
-      const groupedData: { [key: string]: number } = data.reduce((acc, item) => {
+      const groupedData: { [key: string]: { invoiceAmount: number, taxAmount: number }} = data.reduce((acc, item) => {
         const key = `${item.supplier}, ${item.state}`;
         if (!acc[key]) {
-          acc[key] = 0;
+          acc[key] = { invoiceAmount: 0, taxAmount: 0 };
         }
-        acc[key] += item.invoiceAmount;
+        acc[key].invoiceAmount += item.invoiceAmount;
+        acc[key].taxAmount += item.taxAmount;
+    
         return acc;
-      }, {} as { [key: string]: number });
+      }, {} as { [key: string]: { invoiceAmount: number, taxAmount: number } });
 
       // Convertendo o objeto agrupado em um array de objetos
       const formattedData: GroupedData[] = Object.entries(groupedData).map(([key, value]) => ({
         title: key,
-        amount: value.toFixed(2).toString().replace('.', ',') // Convertendo para string com vírgula como separador decimal
+        amount: value.invoiceAmount.toFixed(2).toString().replace('.', ','),
+        taxAmount: value.taxAmount.toFixed(2).toString().replace('.', ','),
       }));
+
 
       setDataExpenses(formattedData);
     } catch (error) {
@@ -58,16 +55,15 @@ export function Resume() {
 
   return (
     <Container>
-      <Header>
-        <Title>Resumo por Categoria</Title>
-      </Header>
+      <Header title="Resumo por Categoria" />
+    
 
       <Content contentContainerStyle={{ padding: 24 }}>
         <FlatList
           data={dataExpenses}
           keyExtractor={item => item.title}
           renderItem={({ item }) => (
-            <HistoryCard amount={item.amount} title={item.title} />
+            <HistoryCard amount={item.amount} title={item.title} taxAmount={item.taxAmount}/>
           )}
           showsVerticalScrollIndicator={false}
         />

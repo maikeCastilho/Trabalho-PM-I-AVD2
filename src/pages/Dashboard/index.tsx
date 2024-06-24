@@ -40,10 +40,9 @@ export function Dashboard() {
         if (!validSuppliers.includes(supplier)){
             return Alert.alert("Forncedor inválido", 'Deu ruim')
         }
+        
         console.log(invoiceAmount)
-
         const numericInvoiceAmount = parseFloat(invoiceAmount.replace('R$', '').replace('.', '').trim());
-
         console.log(numericInvoiceAmount)
 
         if ((taxCode === '1234' || taxCode === '6789') && state == 'RJ'){

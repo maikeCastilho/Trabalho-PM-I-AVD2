@@ -67,7 +67,6 @@
 //   const imposto = calcularImposto(data);
 //   const valorOriginal = brlToNumber(data.invoiceValue);
 //   const valorTotal = imposto + valorOriginal;
-
 //   return (
 //     <Container>
 //       <Description>Fornecedor: {data.supplier}</Description>

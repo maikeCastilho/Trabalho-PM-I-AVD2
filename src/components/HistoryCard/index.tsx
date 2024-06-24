@@ -7,16 +7,19 @@ import {
 interface Props {
   title: string;
   amount: string;
+  taxAmount: string; 
 }
 
 export function HistoryCard({
   title,
   amount,
+  taxAmount
 }: Props) {
   return (
     <Container>
       <Title>{title}</Title>
-      <Amount>{amount}</Amount>
+      <Amount>nf: R$:{amount}</Amount>
+      <Amount>iof: R$:{taxAmount}</Amount>
     </Container>
   )
 }

@@ -9,12 +9,12 @@ export const Container = styled.View`
 export const ButtonCard = styled.TouchableOpacity`
     width: 100%;
     padding: ${RFValue(6)}px;
-    background-color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors};
     border-radius: ${RFValue(10)}px;
 `
 
 export const TextCard = styled.Text`
-    color: ${({ theme }) => theme.colors.shape};
+    color: ${({ theme }) => theme.colors};
     font-size: ${RFValue(26)}px;
     font-weight: bold;
     flex-direction: row;
